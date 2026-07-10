@@ -102,26 +102,6 @@
   .value-card h3{font-size:16px;margin-bottom:10px;letter-spacing:-0.2px;}
   .value-card p{font-size:13.5px;color:var(--gray-500);line-height:1.55;}
 
-  /* ===== Portfolio ===== */
-  .portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-  .case-card{border:1px solid var(--line);background:var(--white);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease;}
-  .case-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,0.08);}
-  .case-visual{
-    height:180px;display:flex;align-items:center;justify-content:center;position:relative;
-    font-family:'Archivo Black',sans-serif;color:var(--white);
-  }
-  .case-visual.ciao{background:linear-gradient(135deg,#2b2b2b,#181818);}
-  .case-visual.hrabia{background:linear-gradient(135deg,#4a4a4a,#2b2b2b);}
-  .case-visual .browser-dots{position:absolute;top:14px;left:16px;display:flex;gap:6px;}
-  .case-visual .browser-dots span{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.35);}
-  .case-visual .brand{font-size:26px;letter-spacing:0.5px;}
-  .case-body{padding:24px 26px 28px;}
-  .case-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--gray-500);margin-bottom:8px;}
-  .case-body h3{font-size:19px;margin-bottom:10px;}
-  .case-body p{font-size:14px;color:var(--gray-500);margin-bottom:16px;}
-  .case-tags{display:flex;gap:8px;flex-wrap:wrap;}
-  .case-tags span{font-size:11.5px;border:1px solid var(--line);border-radius:20px;padding:4px 11px;color:var(--gray-700);}
-
   /* ===== Process ===== */
   .process-list{display:flex;flex-direction:column;}
   .process-item{
@@ -196,10 +176,17 @@
     .menu-btn{display:block;}
     .hero h1{font-size:38px;}
     .values-grid{grid-template-columns:1fr 1fr;}
-    .portfolio-grid{grid-template-columns:1fr;}
     .pricing-grid{grid-template-columns:1fr;}
     .contact-wrap{grid-template-columns:1fr;}
     .hero-stats{gap:32px;}
+  }
+
+  @media (max-width:480px){
+    .hero{padding:64px 0 56px;}
+    .hero h1{font-size:29px;line-height:1.15;letter-spacing:-0.3px;}
+    .hero p.lead{font-size:15px;}
+    .hero-stats{gap:24px;margin-top:44px;}
+    .stat b{font-size:24px;}
   }
 </style>
 </head>
@@ -213,7 +200,6 @@
     </a>
     <nav class="main">
       <a href="#oferta">Oferta</a>
-      <a href="#realizacje">Realizacje</a>
       <a href="#cennik">Cennik</a>
       <a href="#proces">Proces</a>
       <a href="#kontakt">Kontakt</a>
@@ -235,7 +221,7 @@
         <a class="btn secondary" href="#kontakt">Napisz do nas</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b>1–3</b><span>tygodnie realizacji</span></div>
+        <div class="stat"><b>7–14</b><span>dni realizacji</span></div>
         <div class="stat"><b>750 zł</b><span>od tego zaczynasz</span></div>
         <div class="stat"><b>100%</b><span>bezpośredni kontakt z wykonawcą</span></div>
       </div>
@@ -253,7 +239,7 @@
         <div class="value-card">
           <div class="vnum">01</div>
           <h3>Szybko</h3>
-          <p>Standardowy projekt kończymy w 1–3 tygodnie od akceptacji oferty — bez miesięcy oczekiwania.</p>
+          <p>Standardowy projekt kończymy w 7–14 dni od akceptacji oferty — bez miesięcy oczekiwania.</p>
         </div>
         <div class="value-card">
           <div class="vnum">02</div>
@@ -274,46 +260,10 @@
     </div>
   </section>
 
-  <section id="realizacje">
-    <div class="container">
-      <div class="sec-head">
-        <div class="sec-num">02 / PORTFOLIO</div>
-        <h2 class="display">Ostatnie realizacje</h2>
-        <p>Przykładowe projekty pokazujące styl i jakość wykonania.</p>
-      </div>
-      <div class="portfolio-grid">
-        <div class="case-card">
-          <div class="case-visual ciao">
-            <div class="browser-dots"><span></span><span></span><span></span></div>
-            <div class="brand">Ciao Grodzisk</div>
-          </div>
-          <div class="case-body">
-            <div class="case-tag">GASTRONOMIA · RESTAURACJA</div>
-            <h3>Ciao Grodzisk</h3>
-            <p>Strona włoskiej pizzerii — pełna prezentacja menu, klimatyczne animacje i mocny akcent na zdjęcia dań.</p>
-            <div class="case-tags"><span>One-page</span><span>Animacje</span><span>Mobile-first</span></div>
-          </div>
-        </div>
-        <div class="case-card">
-          <div class="case-visual hrabia">
-            <div class="browser-dots"><span></span><span></span><span></span></div>
-            <div class="brand">Głodny Hrabia</div>
-          </div>
-          <div class="case-body">
-            <div class="case-tag">RETAIL · SKLEP ZDROWEJ ŻYWNOŚCI</div>
-            <h3>Głodny Hrabia</h3>
-            <p>Strona lokalnego sklepu ze zdrową żywnością — czytelna oferta produktowa i prosta ścieżka kontaktu.</p>
-            <div class="case-tags"><span>One-page</span><span>Branding</span><span>Lokalne SEO</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="proces">
     <div class="container">
       <div class="sec-head">
-        <div class="sec-num">03 / PROCES</div>
+        <div class="sec-num">02 / PROCES</div>
         <h2 class="display">Jak wygląda współpraca</h2>
         <p>Pięć prostych kroków od pierwszego kontaktu do gotowej strony.</p>
       </div>
@@ -345,7 +295,7 @@
   <section id="cennik">
     <div class="container">
       <div class="sec-head">
-        <div class="sec-num">04 / CENNIK</div>
+        <div class="sec-num">03 / CENNIK</div>
         <h2 class="display">Pakiety dopasowane do skali Twojej firmy</h2>
         <p>Jedna, jasna cena za pakiet — bez widełek i niedopowiedzeń.</p>
       </div>
@@ -399,7 +349,7 @@
     <div class="container">
       <div class="contact-wrap">
         <div class="contact-left">
-          <div class="sec-num">05 / KONTAKT</div>
+          <div class="sec-num">04 / KONTAKT</div>
           <h2 class="display">Porozmawiajmy o Twojej stronie</h2>
           <p>Napisz, zadzwoń albo wypełnij formularz startowy — odpowiadamy szybko i bez zbędnych formalności.</p>
           <div class="contact-details">
