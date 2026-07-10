@@ -268,9 +268,9 @@
   <div class="submit-block">
     <div class="underline-rule"></div>
     <h2>Gotowe?</h2>
-    <p>Wyślij formularz mailem do nas jednym kliknięciem — otworzy się Twój program pocztowy z gotową wiadomością. Możesz też skopiować podsumowanie ręcznie.</p>
+    <p>Wyślij formularz jednym kliknięciem — trafi prosto do nas, bez otwierania Twojej poczty. Możesz też skopiować podsumowanie ręcznie.</p>
     <div class="btn-row">
-      <button type="button" class="btn primary" id="sendBtn">Wyślij mailem</button>
+      <button type="button" class="btn primary" id="sendBtn">Wyślij formularz</button>
       <button type="button" class="btn secondary" id="copyBtn">Skopiuj podsumowanie</button>
     </div>
     <div class="status-msg" id="statusMsg"></div>
@@ -365,14 +365,35 @@ document.getElementById('copyBtn').addEventListener('click', async ()=>{
   }
 });
 
-document.getElementById('sendBtn').addEventListener('click', ()=>{
+document.getElementById('sendBtn').addEventListener('click', async ()=>{
   const fd = new FormData(form);
   const nazwaFirmy = fd.get('nazwaFirmy') || 'Nowy klient';
-  const subject = 'Formularz startowy — ' + nazwaFirmy;
-  const body = buildSummary();
-  const mailto = 'mailto:kontakt@mjdigital.pl?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  window.location.href = mailto;
-  document.getElementById('statusMsg').textContent = 'Otwieranie programu pocztowego...';
+  const sendBtn = document.getElementById('sendBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  const payload = {
+    _subject: 'Formularz startowy — ' + nazwaFirmy,
+    podsumowanie: buildSummary(),
+  };
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = 'Wysyłanie...';
+  statusMsg.textContent = '';
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/kontakt@mjdigital.pl', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) throw new Error('Network error');
+    sendBtn.textContent = 'Wysłano ✓';
+    statusMsg.textContent = 'Dziękujemy! Formularz dotarł do nas — odezwiemy się wkrótce.';
+  } catch (err) {
+    sendBtn.disabled = false;
+    sendBtn.textContent = 'Wyślij formularz';
+    statusMsg.textContent = 'Coś poszło nie tak — spróbuj ponownie albo skopiuj podsumowanie i wyślij je ręcznie.';
+  }
 });
 </script>
 
