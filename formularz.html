@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MJ Digital — Formularz startowy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181818;
+    --gray-700:#4a4a4a;
+    --gray-500:#767676;
+    --gray-300:#c9c9c9;
+    --gray-100:#eeeeee;
+    --paper:#fbfbfa;
+    --white:#ffffff;
+    --line:#dcdcdc;
+    --focus:#181818;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 80px;}
+
+  /* Header */
+  header.top{
+    position:sticky;top:0;z-index:20;
+    background:rgba(251,251,250,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:680px;margin:0 auto;padding:16px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo-badge{
+    width:34px;height:34px;border:2px solid var(--ink);border-radius:8px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-family:'Archivo Black',sans-serif;font-size:12px;line-height:1;gap:3px;
+  }
+  .logo-badge span.rule{width:14px;height:2px;background:var(--ink);display:block;}
+  .logo-text{font-family:'Archivo Black',sans-serif;font-size:15px;letter-spacing:0.5px;}
+  .logo-text .sub{display:block;font-family:'Inter',sans-serif;font-weight:600;font-size:9px;letter-spacing:2px;color:var(--gray-500);margin-top:1px;}
+  .progress-label{font-size:11px;color:var(--gray-500);font-weight:600;letter-spacing:0.5px;}
+  .progress-track{height:2px;background:var(--gray-100);width:100%;}
+  .progress-fill{height:2px;background:var(--ink);width:0%;transition:width .3s ease;}
+
+  /* Hero */
+  .hero{padding:52px 0 8px;}
+  .hero h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:34px;line-height:1.05;margin:0 0 14px;
+    letter-spacing:-0.3px;
+  }
+  .hero p{font-size:15px;color:var(--gray-700);max-width:480px;margin:0 0 6px;line-height:1.55;}
+  .hero .meta{font-size:12px;color:var(--gray-500);margin-top:18px;}
+  .underline-rule{width:64px;height:4px;background:var(--ink);margin:22px 0 0;}
+
+  /* Sections */
+  .section{padding:44px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+  .section-num{
+    font-family:'Archivo Black',sans-serif;font-size:13px;color:var(--gray-300);
+  }
+  .section h2{font-size:19px;margin:0;font-weight:700;letter-spacing:-0.2px;}
+  .section .desc{font-size:13.5px;color:var(--gray-500);margin:6px 0 24px;line-height:1.5;max-width:520px;}
+
+  .field-row{display:flex;gap:16px;margin-bottom:20px;flex-wrap:wrap;}
+  .field{flex:1 1 220px;display:flex;flex-direction:column;gap:6px;}
+  .field.full{flex-basis:100%;}
+  label.field-label{font-size:12px;font-weight:600;color:var(--gray-700);letter-spacing:0.2px;}
+  input[type=text], input[type=email], input[type=tel], input[type=url], textarea{
+    font-family:'Inter',sans-serif;
+    border:none;border-bottom:1.5px solid var(--line);
+    background:transparent;padding:8px 2px;font-size:15px;color:var(--ink);
+    outline:none;transition:border-color .15s ease;
+  }
+  textarea{resize:vertical;min-height:64px;border:1.5px solid var(--line);border-radius:var(--radius);padding:10px;}
+  input:focus, textarea:focus{border-color:var(--focus);}
+  input::placeholder, textarea::placeholder{color:var(--gray-300);}
+
+  .choice-grid{display:flex;flex-wrap:wrap;gap:10px;}
+  .choice{
+    position:relative;
+  }
+  .choice input{position:absolute;opacity:0;width:100%;height:100%;top:0;left:0;margin:0;cursor:pointer;}
+  .choice .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1.5px solid var(--line);border-radius:20px;
+    padding:9px 16px;font-size:13.5px;color:var(--gray-700);
+    transition:all .15s ease;user-select:none;background:var(--white);
+  }
+  .choice .pill .box{
+    width:14px;height:14px;border:1.5px solid var(--gray-300);flex-shrink:0;
+    display:inline-flex;align-items:center;justify-content:center;transition:all .15s ease;
+  }
+  .choice input[type=radio] + .pill .box{border-radius:50%;}
+  .choice input[type=checkbox] + .pill .box{border-radius:3px;}
+  .choice .pill .box::after{
+    content:'';width:7px;height:7px;background:var(--ink);opacity:0;transition:opacity .1s ease;
+  }
+  .choice input[type=checkbox] + .pill .box::after{border-radius:1px;}
+  .choice input[type=radio] + .pill .box::after{border-radius:50%;}
+  .choice input:checked + .pill{border-color:var(--ink);background:var(--ink);color:var(--white);}
+  .choice input:checked + .pill .box{border-color:var(--white);}
+  .choice input:checked + .pill .box::after{opacity:1;background:var(--white);}
+  .choice input:focus-visible + .pill{outline:2px solid var(--ink);outline-offset:2px;}
+  .price-tag{display:block;font-size:11px;opacity:0.75;margin-top:1px;}
+
+  .hint{font-size:12px;color:var(--gray-500);margin-top:10px;font-style:italic;}
+
+  /* Submit */
+  .submit-block{padding:52px 0 20px;text-align:center;}
+  .submit-block .underline-rule{margin:0 auto 22px;}
+  .submit-block h2{font-family:'Archivo Black',sans-serif;font-size:22px;margin:0 0 10px;}
+  .submit-block p{font-size:13.5px;color:var(--gray-500);max-width:420px;margin:0 auto 26px;line-height:1.5;}
+  .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  button.btn{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:14px;
+    border:2px solid var(--ink);border-radius:2px;padding:13px 26px;
+    cursor:pointer;transition:all .15s ease;letter-spacing:0.2px;
+  }
+  button.btn.primary{background:var(--ink);color:var(--white);}
+  button.btn.primary:hover{background:#000;}
+  button.btn.secondary{background:transparent;color:var(--ink);}
+  button.btn.secondary:hover{background:var(--gray-100);}
+  .status-msg{margin-top:16px;font-size:12.5px;color:var(--gray-500);min-height:18px;}
+
+  footer.foot{
+    text-align:center;padding:30px 20px;font-size:11px;color:var(--gray-300);
+    border-top:1px solid var(--line);
+  }
+
+  @media (max-width:480px){
+    .hero h1{font-size:27px;}
+    .field-row{gap:14px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="logo">
+      <div class="logo-badge">MJ<span class="rule"></span></div>
+      <div class="logo-text">MJ<span class="sub">DIGITAL</span></div>
+    </div>
+    <div class="progress-label" id="progressLabel">0% wypełnione</div>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</header>
+
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Formularz startowy projektu</h1>
+    <p>Wypełnienie zajmuje ok. 5 minut. Im więcej szczegółów podasz, tym szybciej ruszymy z projektem Twojej strony.</p>
+    <div class="underline-rule"></div>
+    <div class="meta">8 sekcji · zapisuje się automatycznie w tej przeglądarce</div>
+  </div>
+
+  <form id="startForm">
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">01</span><h2>Dane firmy i osoby kontaktowej</h2></div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">Nazwa firmy</label><input type="text" name="nazwaFirmy" placeholder="Twoja firma"></div>
+        <div class="field"><label class="field-label">Branża</label><input type="text" name="branza" placeholder="np. gastronomia"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">Osoba kontaktowa</label><input type="text" name="osoba" placeholder="Imię i nazwisko"></div>
+        <div class="field"><label class="field-label">Stanowisko</label><input type="text" name="stanowisko" placeholder="np. właściciel"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label class="field-label">Telefon</label><input type="tel" name="telefon" placeholder="+48 000 000 000"></div>
+        <div class="field"><label class="field-label">E-mail</label><input type="email" name="email" placeholder="ty@firma.pl"></div>
+      </div>
+      <div class="field-row">
+        <div class="field full"><label class="field-label">Adres firmy (jeśli ma być na stronie)</label><input type="text" name="adres" placeholder="Ulica, miasto"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">02</span><h2>Wybrany pakiet</h2></div>
+      <div class="choice-grid" data-group="pakiet">
+        <label class="choice"><input type="radio" name="pakiet" value="Wizytówka (750 zł)"><span class="pill"><span class="box"></span>Wizytówka<span class="price-tag">750 zł</span></span></label>
+        <label class="choice"><input type="radio" name="pakiet" value="Standard (1500 zł)"><span class="pill"><span class="box"></span>Standard<span class="price-tag">1500 zł</span></span></label>
+        <label class="choice"><input type="radio" name="pakiet" value="Premium (2500 zł)"><span class="pill"><span class="box"></span>Premium<span class="price-tag">2500 zł</span></span></label>
+      </div>
+      <div class="choice-grid" style="margin-top:14px;">
+        <label class="choice"><input type="checkbox" name="utrzymanie" value="Tak, zainteresowany/a utrzymaniem (50–150 zł/mies.)"><span class="pill"><span class="box"></span>Zainteresowany/a utrzymaniem strony</span></label>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">03</span><h2>Cel strony i grupa docelowa</h2></div>
+      <p class="desc">Do czego ma służyć strona? Kto ją będzie odwiedzał? Np. pozyskanie klientów, prezentacja oferty, rezerwacje online.</p>
+      <div class="field-row"><div class="field full"><textarea name="cel" placeholder="Opisz swoimi słowami..."></textarea></div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">04</span><h2>Materiały, które posiadasz</h2></div>
+      <div class="choice-grid">
+        <label class="choice"><input type="checkbox" name="materialy" value="Logo firmy"><span class="pill"><span class="box"></span>Logo firmy</span></label>
+        <label class="choice"><input type="checkbox" name="materialy" value="Gotowe zdjęcia"><span class="pill"><span class="box"></span>Gotowe zdjęcia</span></label>
+        <label class="choice"><input type="checkbox" name="materialy" value="Gotowe teksty / opisy oferty"><span class="pill"><span class="box"></span>Gotowe teksty / opisy oferty</span></label>
+        <label class="choice"><input type="checkbox" name="materialy" value="Księga znaku / kolory marki"><span class="pill"><span class="box"></span>Księga znaku / kolory marki</span></label>
+        <label class="choice"><input type="checkbox" name="materialy" value="Domena"><span class="pill"><span class="box"></span>Domena</span></label>
+        <label class="choice"><input type="checkbox" name="materialy" value="Aktywny hosting"><span class="pill"><span class="box"></span>Aktywny hosting</span></label>
+      </div>
+      <div class="hint">Jeśli czegoś brakuje, pomożemy to przygotować — zaznacz tylko to, co już masz.</div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">05</span><h2>Inspiracje</h2></div>
+      <p class="desc">Podaj adresy 1–3 stron, które Ci się podobają (mogą być konkurencyjne lub z zupełnie innej branży) — i co konkretnie Ci się w nich podoba.</p>
+      <div class="field-row"><div class="field full"><textarea name="inspiracje" placeholder="np. www.przyklad.pl — podoba mi się prosta nawigacja..."></textarea></div></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">06</span><h2>Styl i kolorystyka marki</h2></div>
+      <div class="choice-grid">
+        <label class="choice"><input type="checkbox" name="styl" value="Nowoczesny / minimalistyczny"><span class="pill"><span class="box"></span>Nowoczesny / minimalistyczny</span></label>
+        <label class="choice"><input type="checkbox" name="styl" value="Ciepły / rodzinny"><span class="pill"><span class="box"></span>Ciepły / rodzinny</span></label>
+        <label class="choice"><input type="checkbox" name="styl" value="Elegancki / premium"><span class="pill"><span class="box"></span>Elegancki / premium</span></label>
+        <label class="choice"><input type="checkbox" name="styl" value="Kolorowy / energiczny"><span class="pill"><span class="box"></span>Kolorowy / energiczny</span></label>
+      </div>
+      <div class="field-row" style="margin-top:18px;">
+        <div class="field full"><label class="field-label">Preferowane kolory (jeśli znane)</label><input type="text" name="kolory" placeholder="np. czerń, biel, akcent w kolorze..."></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">07</span><h2>Podstrony</h2></div>
+      <p class="desc">Dotyczy pakietów Standard i Premium.</p>
+      <div class="choice-grid">
+        <label class="choice"><input type="checkbox" name="podstrony" value="Strona główna"><span class="pill"><span class="box"></span>Strona główna</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="O nas"><span class="pill"><span class="box"></span>O nas</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Oferta / usługi"><span class="pill"><span class="box"></span>Oferta / usługi</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Cennik"><span class="pill"><span class="box"></span>Cennik</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Galeria"><span class="pill"><span class="box"></span>Galeria</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Opinie klientów"><span class="pill"><span class="box"></span>Opinie klientów</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Blog / aktualności"><span class="pill"><span class="box"></span>Blog / aktualności</span></label>
+        <label class="choice"><input type="checkbox" name="podstrony" value="Kontakt"><span class="pill"><span class="box"></span>Kontakt</span></label>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head"><span class="section-num">08</span><h2>Termin i dodatkowe uwagi</h2></div>
+      <div class="field-row">
+        <div class="field full"><label class="field-label">Oczekiwany termin uruchomienia strony</label><input type="text" name="termin" placeholder="np. połowa sierpnia"></div>
+      </div>
+      <div class="field-row" style="margin-top:6px;">
+        <div class="field full"><label class="field-label">Uwagi, oczekiwania, pytania</label><textarea name="uwagi" placeholder="Miejsce na wszystko, co jeszcze chcesz nam przekazać..."></textarea></div>
+      </div>
+    </section>
+
+  </form>
+
+  <div class="submit-block">
+    <div class="underline-rule"></div>
+    <h2>Gotowe?</h2>
+    <p>Wyślij formularz mailem do nas jednym kliknięciem — otworzy się Twój program pocztowy z gotową wiadomością. Możesz też skopiować podsumowanie ręcznie.</p>
+    <div class="btn-row">
+      <button type="button" class="btn primary" id="sendBtn">Wyślij mailem</button>
+      <button type="button" class="btn secondary" id="copyBtn">Skopiuj podsumowanie</button>
+    </div>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <footer class="foot">MJ Digital · kontakt@mjdigital.pl · mjdigital.pl</footer>
+
+</div>
+
+<script>
+const form = document.getElementById('startForm');
+const allInputs = () => Array.from(form.querySelectorAll('input, textarea'));
+
+function updateProgress(){
+  const inputs = allInputs();
+  let filled = 0;
+  const seenRadioGroups = new Set();
+  let total = 0;
+  inputs.forEach(inp=>{
+    if(inp.type === 'radio'){
+      if(seenRadioGroups.has(inp.name)) return;
+      seenRadioGroups.add(inp.name);
+      total++;
+      if(form.querySelector('input[name="'+inp.name+'"]:checked')) filled++;
+    } else if(inp.type === 'checkbox'){
+      total++;
+      if(inp.checked) filled++;
+    } else {
+      total++;
+      if(inp.value.trim() !== '') filled++;
+    }
+  });
+  const pct = total ? Math.round((filled/total)*100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = pct + '% wypełnione';
+}
+
+form.addEventListener('input', updateProgress);
+form.addEventListener('change', updateProgress);
+updateProgress();
+
+function buildSummary(){
+  const fd = new FormData(form);
+  const get = (name) => fd.get(name) || '—';
+  const getAll = (name) => { const v = fd.getAll(name); return v.length ? v.join(', ') : '—'; };
+
+  return `FORMULARZ STARTOWY PROJEKTU — MJ Digital
+=========================================
+
+1. DANE FIRMY I OSOBY KONTAKTOWEJ
+Nazwa firmy: ${get('nazwaFirmy')}
+Branża: ${get('branza')}
+Osoba kontaktowa: ${get('osoba')}
+Stanowisko: ${get('stanowisko')}
+Telefon: ${get('telefon')}
+E-mail: ${get('email')}
+Adres firmy: ${get('adres')}
+
+2. WYBRANY PAKIET
+Pakiet: ${get('pakiet')}
+Utrzymanie strony: ${get('utrzymanie')}
+
+3. CEL STRONY I GRUPA DOCELOWA
+${get('cel')}
+
+4. MATERIAŁY, KTÓRE POSIADA KLIENT
+${getAll('materialy')}
+
+5. INSPIRACJE
+${get('inspiracje')}
+
+6. STYL I KOLORYSTYKA MARKI
+Styl: ${getAll('styl')}
+Preferowane kolory: ${get('kolory')}
+
+7. PODSTRONY
+${getAll('podstrony')}
+
+8. TERMIN I UWAGI
+Oczekiwany termin: ${get('termin')}
+Uwagi: ${get('uwagi')}
+`;
+}
+
+document.getElementById('copyBtn').addEventListener('click', async ()=>{
+  const text = buildSummary();
+  try{
+    await navigator.clipboard.writeText(text);
+    document.getElementById('statusMsg').textContent = 'Skopiowano — wklej w mailu lub wiadomości.';
+  }catch(e){
+    document.getElementById('statusMsg').textContent = 'Nie udało się skopiować automatycznie — zaznacz tekst ręcznie.';
+  }
+});
+
+document.getElementById('sendBtn').addEventListener('click', ()=>{
+  const fd = new FormData(form);
+  const nazwaFirmy = fd.get('nazwaFirmy') || 'Nowy klient';
+  const subject = 'Formularz startowy — ' + nazwaFirmy;
+  const body = buildSummary();
+  const mailto = 'mailto:kontakt@mjdigital.pl?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
+  document.getElementById('statusMsg').textContent = 'Otwieranie programu pocztowego...';
+});
+</script>
+
+</body>
+</html>
