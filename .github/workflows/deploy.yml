@@ -19,5 +19,5 @@ jobs:
           password: ${{ secrets.SFTP_PASSWORD_01 }}
           port: 222
           local_path: './*'
-          remote_path: '/public_html/'
+          remote_path: 'public_html/'
           sftp_only: true
